@@ -1,0 +1,37 @@
+buildscript {
+    ext {
+        springBootVersion = "2.1.7.RELEASE"
+    }
+    repositories {
+        jcenter()
+        maven { url "http://spinnaker.bintray.com/gradle" }
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath "com.netflix.nebula:nebula-publishing-plugin:12.0.1"
+        classpath 'com.netflix.spinnaker.gradle:spinnaker-gradle-project:7.2.0'
+        classpath 'com.netflix.spinnaker.gradle:spinnaker-dev-plugin:7.2.0'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+ext {
+    clouddriverVersion = "6.4.2-20191202102650"
+}
+
+allprojects {
+    group = "com.netflix.spinnaker"
+    apply plugin: 'spinnaker.base-project'
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://dl.bintray.com/spinnaker-releases/jars/' }
+        jcenter()
+    }
+
+//    spinnaker {
+//        dependenciesVersion = '0.109.2'
+//    }
+}

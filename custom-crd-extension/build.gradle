@@ -1,0 +1,34 @@
+plugins {
+    id 'spinnaker.application'
+    id 'org.springframework.boot'
+}
+
+//apply plugin: 'application'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'spinnaker.package'
+
+//spinnaker {
+//    dependenciesVersion = '0.109.2'
+//}
+
+applicationName="clouddriver"
+//ospackage {
+//    packageName = 'innitech-clouddriver'
+//    replaces 'spinnaker-clouddriver'
+//}
+
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "com.netflix.spectator:spectator-api:0.75.0"
+    implementation "com.netflix.spinnaker.clouddriver:clouddriver-web:${clouddriverVersion}"
+    implementation "com.netflix.spinnaker.clouddriver:clouddriver-core:${clouddriverVersion}"
+    implementation "com.netflix.spinnaker.clouddriver:clouddriver-kubernetes:${clouddriverVersion}"
+    implementation "com.netflix.spinnaker.clouddriver:clouddriver-kubernetes-v2:${clouddriverVersion}"
+}
+
+springBoot {
+    mainClassName = 'com.netflix.spinnaker.clouddriver.Main'
+}
+mainClassName = 'com.netflix.spinnaker.clouddriver.Main'
