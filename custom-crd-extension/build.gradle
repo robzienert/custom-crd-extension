@@ -43,6 +43,8 @@ distributions {
     }
 }
 
+jar { enabled = true }
+
 springBoot {
     mainClassName = 'com.netflix.spinnaker.clouddriver.Main'
 }

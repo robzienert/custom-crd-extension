@@ -3,7 +3,6 @@ package com.netflix.spinnaker.internal.kubernetes.handlers;
 import com.netflix.spinnaker.clouddriver.kubernetes.description.SpinnakerKind;
 import com.netflix.spinnaker.clouddriver.kubernetes.v2.caching.agent.KubernetesCoreCachingAgent;
 import com.netflix.spinnaker.clouddriver.kubernetes.v2.caching.agent.KubernetesV2CachingAgentFactory;
-import com.netflix.spinnaker.clouddriver.kubernetes.v2.description.manifest.KubernetesApiGroup;
 import com.netflix.spinnaker.clouddriver.kubernetes.v2.description.manifest.KubernetesKind;
 import com.netflix.spinnaker.clouddriver.kubernetes.v2.description.manifest.KubernetesManifest;
 import com.netflix.spinnaker.clouddriver.kubernetes.v2.model.Manifest;
@@ -19,7 +18,7 @@ public class CronTabKubernetesHandler extends KubernetesHandler {
 
   @Override
   public KubernetesKind kind() {
-    return KubernetesKind.from("CronTab", KubernetesApiGroup.fromString("stable.example.com"));
+    return KubernetesKind.fromString("cronTab");
   }
 
   @Override

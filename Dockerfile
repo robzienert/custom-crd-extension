@@ -9,7 +9,6 @@ RUN ./gradlew installDist -x test
 
 FROM alpine:3.11
 MAINTAINER delivery-engineering@netflix.com
-COPY --from=builder /compiled_sources/custom-crd-extension/build/install/clouddriver /opt/clouddriver
 
 ENV KUBECTL_VERSION v1.16.0
 
@@ -18,7 +17,7 @@ RUN apk --no-cache add --update bash wget unzip openjdk8 'python2>2.7.9' && \
   unzip -qq google-cloud-sdk.zip -d /opt && \
   rm google-cloud-sdk.zip && \
   CLOUDSDK_PYTHON="python2.7" /opt/google-cloud-sdk/install.sh --usage-reporting=false --bash-completion=false --additional-components app-engine-java && \
-  rm -rf ~/.config/gcloudB
+  rm -rf ~/.config/gcloud
 
 RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x kubectl && \
@@ -33,6 +32,8 @@ RUN apk -v --update add py-pip && \
   pip install --upgrade awscli==1.16.258 s3cmd==2.0.1 python-magic && \
   apk -v --purge del py-pip && \
   rm /var/cache/apk/*
+
+COPY --from=builder /compiled_sources/custom-crd-extension/build/install/clouddriver /opt/clouddriver
 
 ENV PATH "$PATH:/usr/local/bin/"
 
