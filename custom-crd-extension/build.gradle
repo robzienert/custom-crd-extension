@@ -3,30 +3,47 @@ plugins {
     id 'org.springframework.boot'
 }
 
-//apply plugin: 'application'
-//apply plugin: 'org.springframework.boot'
-//apply plugin: 'spinnaker.package'
-
-//spinnaker {
-//    dependenciesVersion = '0.109.2'
-//}
-
 applicationName="clouddriver"
-//ospackage {
-//    packageName = 'innitech-clouddriver'
-//    replaces 'spinnaker-clouddriver'
-//}
 
+apply plugin: 'java'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'spinnaker.application'
+
+ext {
+    springConfigLocation = System.getProperty('spring.config.additional-location', "${System.getProperty('user.home')}/.spinnaker/")
+}
+
+run {
+    systemProperty('spring.config.additional-location', project.springConfigLocation)
+}
+
+startScripts {
+    doLast {
+        unixScript.text = unixScript.text.replace('CLASSPATH=$APP_HOME', 'CLASSPATH=$APP_HOME/config:$APP_HOME')
+    }
+}
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "com.netflix.spectator:spectator-api:0.75.0"
-    implementation "com.netflix.spinnaker.clouddriver:clouddriver-web:${clouddriverVersion}"
+    runtime "com.netflix.spinnaker.clouddriver:clouddriver-web:${clouddriverVersion}"
     implementation "com.netflix.spinnaker.clouddriver:clouddriver-core:${clouddriverVersion}"
     implementation "com.netflix.spinnaker.clouddriver:clouddriver-kubernetes:${clouddriverVersion}"
     implementation "com.netflix.spinnaker.clouddriver:clouddriver-kubernetes-v2:${clouddriverVersion}"
 }
+
+
+distributions {
+    main {
+        contents {
+            into ('config') {
+                from 'config'
+            }
+        }
+    }
+}
+
+jar { enabled = true }
 
 springBoot {
     mainClassName = 'com.netflix.spinnaker.clouddriver.Main'

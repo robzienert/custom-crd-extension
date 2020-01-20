@@ -9,7 +9,6 @@ RUN ./gradlew installDist -x test
 
 FROM alpine:3.11
 MAINTAINER delivery-engineering@netflix.com
-COPY --from=builder /compiled_sources/custom-crd-extension/build/install/clouddriver /opt/clouddriver
 
 ENV KUBECTL_VERSION v1.16.0
 
@@ -33,6 +32,8 @@ RUN apk -v --update add py-pip && \
   pip install --upgrade awscli==1.16.258 s3cmd==2.0.1 python-magic && \
   apk -v --purge del py-pip && \
   rm /var/cache/apk/*
+
+COPY --from=builder /compiled_sources/custom-crd-extension/build/install/clouddriver /opt/clouddriver
 
 ENV PATH "$PATH:/usr/local/bin/"
 
