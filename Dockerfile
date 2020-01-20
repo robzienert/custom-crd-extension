@@ -18,7 +18,7 @@ RUN apk --no-cache add --update bash wget unzip openjdk8 'python2>2.7.9' && \
   unzip -qq google-cloud-sdk.zip -d /opt && \
   rm google-cloud-sdk.zip && \
   CLOUDSDK_PYTHON="python2.7" /opt/google-cloud-sdk/install.sh --usage-reporting=false --bash-completion=false --additional-components app-engine-java && \
-  rm -rf ~/.config/gcloud
+  rm -rf ~/.config/gcloudB
 
 RUN wget https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
   chmod +x kubectl && \
