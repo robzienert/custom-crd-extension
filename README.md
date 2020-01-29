@@ -24,7 +24,7 @@ can add other custom handlers in this area as you like.
 
 ## Running the project
 
-Running the extension is the same as you would run upstream Clouddriver. Simply run `./gradlew` and the application will start.
+Running the extension is the same as you would run upstream Clouddriver. Simply run `./gradlew run` and the application will start.
 
 
 ## Building the project
